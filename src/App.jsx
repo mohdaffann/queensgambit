@@ -2,6 +2,7 @@ import ChessboardWrapper from "./components/ChessboardWrapper"
 import { SocketProvider } from "./components/SocketProvider"
 import Lobby from "./components/Lobby"
 import Game from "./components/Game.jsx"
+import { Analytics } from "@vercel/analytics/react"
 import { createBrowserRouter, RouterProvider } from "react-router"
 import Layout from "./Layout/Layout.jsx"
 import HomePage from "./components/HomePage.jsx"
@@ -34,6 +35,7 @@ function App() {
     <>
       <SocketProvider>
         <RouterProvider router={routes} />
+        <Analytics />
       </SocketProvider>
 
     </>
