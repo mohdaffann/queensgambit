@@ -6,7 +6,7 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null)
 
     useEffect(() => {
-        const newSoc = io('http://localhost:4000');
+        const newSoc = io(import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000');
         setSocket(newSoc)
         return () => {
             newSoc.disconnect();
