@@ -107,7 +107,7 @@ function Header() {
                                 Guide
                             </NavLink>
                             <NavLink
-                                to="/"
+                                to="/about"
 
                                 className={({ isActive }) =>
                                     `block px-3 py-2 text-white hover:text-yellow-400 hover:bg-white hover:bg-opacity-10 rounded transition-colors duration-200 ${isActive ? 'text-yellow-400 bg-white bg-opacity-10' : ''

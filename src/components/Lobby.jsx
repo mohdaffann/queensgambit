@@ -116,8 +116,8 @@ function Lobby() {
                                 {roomId && <input type="text" readOnly={true} value={roomId} className="text-black bg-white w-[320px] ml-2 p-3" />}
                             </div>
                             <p className="text-center text-white text-[25px] mt-3">(OR)</p>
-                            <div className="flex flex-row items-center justify-center mt-3 ">
-                                <input type="text" className="text-black bg-white p-3 mr-2" onChange={(e) => setRoomIdInput(e.target.value)} value={roomIdInput} />
+                            <div className="flex flex-col md:flex-row gap-2 items-center justify-center mt-3 ">
+                                <input type="text" className="text-black bg-white p-3 " onChange={(e) => setRoomIdInput(e.target.value)} value={roomIdInput} />
                                 <button onClick={joinRoom} className="px-4 py-2 text-[25px] bg-white rounded-lg text-black transition duration-300 ease-in-out cursor-pointer hover:bg-gray-200">Join Room</button>
                             </div>
                             <div className="flex items-center justify-center">
