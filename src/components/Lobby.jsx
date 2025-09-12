@@ -88,6 +88,14 @@ function Lobby() {
                 lobby === 'lobby' && (
                     <div>
                         <div>
+                            <div className="flex flex-col items-center text-gray-300 mb-2 px-3">
+                                <span>For just testing out the game :</span>
+                                <ol className="list-inside list-decimal mt-2 space-y-1">
+                                    <li>create a game and visit the bobby of the app in a new tab.</li>
+                                    <li>You will see an Id in Quick join section , which is the socket.id not roomId</li>
+                                    <li>Click on it to join the room , or paste the roomId in join room input.</li>
+                                </ol>
+                            </div>
                             <div className="flex items-center flex-col md:flex-row gap-3 ">
                                 <button className={`flex items-center justify-center rounded-lg px-4 py-2 transition duration-200 text-black ease-in-out cursor-pointer ${gameMode === 'rapid'
                                     ? 'bg-yellow-300 '

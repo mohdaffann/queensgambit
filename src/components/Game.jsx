@@ -40,6 +40,9 @@ function Game() {
     return (
         <div className="w-full  flex flex-col sm:flex-row    justify-center mt-16 p-4 md:pt-9">
             <div>
+                <div className="flex justify-center items-center t">
+                    <h1 className="text-xl mb-5 md:mb-2  text-gray-300">Drag the piece to make a move!</h1>
+                </div>
                 <div className="flex justify-start max-w-[100px]  text-lg md:text-xl font-bold px-4 md:px-6 py-2 bg-gray-700 ">
                     {playerColor === 'white' ? (
                         <span className={`${criticalBlackTime ? 'text-red-600' : 'text-white'}`}>{formatTime(blackTime)}</span>

@@ -8,7 +8,7 @@ function Guide() {
         },
         {
             title: 'Move History',
-            para: 'When playing a game , on every move you get updated moves below . Those moves are called pgn format text which is chess notations . Copy those after game is finished and paste the text on chess.com or lickess.org analysis board to get chess engines analysis'
+            para: 'When playing a game , on every move you get updated moves below . Those moves are called pgn format text which is chess notations . Copy those after game is finished and paste the text on chess.com or lichess.org analysis board to get chess engine analysis'
         },
     ];
     return (

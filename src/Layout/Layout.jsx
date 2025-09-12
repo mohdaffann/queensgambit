@@ -4,9 +4,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 function Layout() {
   return (
-    <div className="min-h-screen overflow-hidden bg-[#0F1316]">
+    <div className="min-h-screen flex flex-col overflow-hidden bg-[#0F1316]">
       <Header />
-      <Outlet />
+      <div className="flex-1">
+        <Outlet />
+
+      </div>
       <Footer />
     </div>
   )
