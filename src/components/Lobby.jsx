@@ -91,8 +91,8 @@ function Lobby() {
                             <div className="flex flex-col items-center text-gray-300 mb-2 px-3">
                                 <span>For just testing out the game :</span>
                                 <ol className="list-inside list-decimal mt-2 space-y-1">
-                                    <li>create a game and visit the bobby of the app in a new tab.</li>
-                                    <li>You will see an Id in Quick join section , which is the socket.id not roomId</li>
+                                    <li>create a game and visit the lobby of the app in a new tab.</li>
+                                    <li>You will see an Id in Quick join section , which is the socket.id not roomId.</li>
                                     <li>Click on it to join the room , or paste the roomId in join room input.</li>
                                 </ol>
                             </div>
