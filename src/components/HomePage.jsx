@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from 'framer-motion'
 import { NavLink } from 'react-router'
+import { useSocket } from "./SocketProvider";
+import HomeButtons from "./HomeButtons";
 function HomePage() {
+
     const features = [{
         image: '/anonymously.jpg',
         heading: 'Play Anonymously',
@@ -38,15 +41,9 @@ function HomePage() {
                     >QueensGambit</h1>
                     <p className="text-white max-w-[280px] sm:max-w-lg md:max-w-2xl italic mt-3 text-[18px] md:text-base">"A chess app built on top of socket.io , to play Rapid , Blitz and Bullet chess anonymously"</p>
                 </div>
-                <div className="absolute top-[520px] mt-4 left-3 md:top-96 md:left-30 flex gap-4">
-                    <NavLink
-                        to={'/lobby'}
-                        className="rounded cursor-pointer    px-8 font-semibold py-2 focus:bg-gray-300 focus:text-gray-900 active:bg-gray-300 active:text-gray-900 text-gray-300 border border-gray-300 transition duration-200 ease-in-out hover:bg-gray-300 hover:text-gray-900 ">Lobby</NavLink>
-                    <NavLink
-                        to={'/guide'}
-                        className="rounded   cursor-pointer  px-8 font-semibold py-2 focus:bg-gray-300 focus:text-gray-900 active:bg-gray-300 active:text-gray-900 text-gray-300 border border-gray-300 transition duration-200 ease-in-out hover:bg-gray-300 hover:text-gray-900 ">Guide</NavLink>
 
-                </div>
+                <HomeButtons />
+
             </div>
             <h1 className="text-center font-bold text-white text-3xl md:text-4xl mt-3 mb-5">Features</h1>
             <div className="flex flex-col  items-center justify-center gap-8 px-10 mb-6">

@@ -53,7 +53,6 @@ function Header() {
                         </NavLink>
                         <NavLink
                             to="/about" onClick={(e) => {
-                                e.preventDefault();
                                 socket.emit('leaveGame')
                             }}
                             className={({ isActive }) =>
