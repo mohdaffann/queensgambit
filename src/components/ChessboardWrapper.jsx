@@ -2,19 +2,27 @@ import React, { useState, useRef, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { useSocket } from "./SocketProvider";
-function ChessboardWrapper({ roomId, playerColor }) {
+function ChessboardWrapper({ roomId, playerColor, isComputerGame }) {
     const gameRef = useRef(new Chess());
     const [errorsEmitted, setErrorsEmitted] = useState(null)
     const [position, setPosition] = useState(gameRef.current.fen());
     const socket = useSocket();
     const onPieceDrop = ({ sourceSquare, targetSquare }) => {
-
-        socket.emit('move', {
-            roomId,
-            from: sourceSquare,
-            to: targetSquare,
-            promotion: 'q'
-        })
+        if (isComputerGame) {
+            socket.emit('botMove', {
+                roomId,
+                from: sourceSquare,
+                to: targetSquare,
+                promotion: 'q'
+            })
+        } else {
+            socket.emit('move', {
+                roomId,
+                from: sourceSquare,
+                to: targetSquare,
+                promotion: 'q'
+            })
+        }
         return true;
 
     };
