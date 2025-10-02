@@ -9,6 +9,7 @@ function Game() {
     const [whiteTime, setWhiteTime] = useState(0);
     const loc = useLocation();
     const playerColor = loc.state?.playerColor;
+    const isComputer = loc.state?.isComputer;
     const [pgn, setPgn] = useState('');
     const [gameOver, setGameOver] = useState(null);
     const socket = useSocket();
@@ -43,15 +44,18 @@ function Game() {
                 <div className="flex justify-center items-center t">
                     <h1 className="text-xl mb-5 md:mb-2  text-gray-300">Drag the piece to make a move!</h1>
                 </div>
-                <div className="flex justify-start max-w-[100px]  text-lg md:text-xl font-bold px-4 md:px-6 py-2 bg-gray-700 ">
-                    {playerColor === 'white' ? (
-                        <span className={`${criticalBlackTime ? 'text-red-600' : 'text-white'}`}>{formatTime(blackTime)}</span>
-                    ) : (
-                        <span className={`${criticalWhiteTime ? 'text-red-600' : 'text-white'}`}>{formatTime(whiteTime)}</span>
-                    )}
-                </div>
+                {!isComputer &&
+                    <div className="flex justify-start max-w-[100px]  text-lg md:text-xl font-bold px-4 md:px-6 py-2 bg-gray-700 ">
+                        {playerColor === 'white' ? (
+                            <span className={`${criticalBlackTime ? 'text-red-600' : 'text-white'}`}>{formatTime(blackTime)}</span>
+                        ) : (
+                            <span className={`${criticalWhiteTime ? 'text-red-600' : 'text-white'}`}>{formatTime(whiteTime)}</span>
+                        )}
+                    </div>
+                }
+
                 <div className="relative flex-shrink-0">
-                    <ChessboardWrapper roomId={roomId} playerColor={playerColor} />
+                    <ChessboardWrapper roomId={roomId} playerColor={playerColor} isComputerGame={isComputer} />
                     {gameOver && (
                         <div className="bg-none bg-opacity-100 backdrop-blur-[3px]  flex items-center justify-center z-10 absolute inset-0">
                             <div className="flex flex-col">
@@ -65,14 +69,16 @@ function Game() {
                         </div>
                     )}
                 </div>
+                {!isComputer &&
+                    <div className="flex justify-start max-w-[100px] text-lg md:text-xl font-bold px-4 md:px-6 py-2 bg-gray-700 ">
+                        {playerColor === 'black' ? (
+                            <span className={`${criticalBlackTime ? 'text-red-600' : 'text-white'}`}>{formatTime(blackTime)}</span>
+                        ) : (
+                            <span className={`${criticalWhiteTime ? 'text-red-600' : 'text-white'}`}>{formatTime(whiteTime)}</span>
+                        )}
+                    </div>
+                }
 
-                <div className="flex justify-start max-w-[100px] text-lg md:text-xl font-bold px-4 md:px-6 py-2 bg-gray-700 ">
-                    {playerColor === 'black' ? (
-                        <span className={`${criticalBlackTime ? 'text-red-600' : 'text-white'}`}>{formatTime(blackTime)}</span>
-                    ) : (
-                        <span className={`${criticalWhiteTime ? 'text-red-600' : 'text-white'}`}>{formatTime(whiteTime)}</span>
-                    )}
-                </div>
             </div>
             <div className="ml-4 mt-12">
                 <h1 className="font-bold text-xl text-white text-center mb-2">Moves</h1>

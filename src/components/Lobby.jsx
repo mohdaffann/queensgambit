@@ -1,10 +1,11 @@
 import React, { use, useEffect, useState } from "react";
 import { useSocket } from "./SocketProvider";
 import ChessboardWrapper from "./ChessboardWrapper";
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 function Lobby() {
     const socket = useSocket();
     const nav = useNavigate();
+    const location = useLocation();
     const [lobby, setLobby] = useState('lobby');
     const [roomId, setRoomId] = useState(null);
     const [roomError, setRoomError] = useState(null);
@@ -12,6 +13,7 @@ function Lobby() {
     const [roomIdInput, setRoomIdInput] = useState('')
     const [anonymousRooms, setAnonymusRooms] = useState([]);
     const [gameMode, setGameMode] = useState('rapid');
+    const [isComputer, setIsComputer] = useState(false);
     const createRoom = () => {
         socket.emit('createRoom', gameMode)
     }
@@ -20,6 +22,10 @@ function Lobby() {
     }
     useEffect(() => {
         if (!socket) return;
+        if (location.state?.startComputerGame) {
+            socket.emit('computerGame');
+            setIsComputer(true);
+        }
         socket.on('roomCreated', ({ roomId, color }) => {
             setRoomId(roomId);
             setPlayerColor(color)
@@ -51,6 +57,13 @@ function Lobby() {
             setRoomError('The creator of the room cannot join as second player!')
         })
 
+        socket.on('computerGameCreated', ({ roomID, color }) => {
+            setRoomId(roomID);
+            setPlayerColor(color);
+            setIsComputer(true);
+            setLobby('play')
+        })
+
         return () => {
             socket.off('roomCreated');
             socket.off('invalidRoomId');
@@ -64,9 +77,15 @@ function Lobby() {
             }
 
         }
-    }, [socket])
+    }, [socket, location.state?.startComputerGame])
+
+    useEffect(() => {
+        if (lobby === 'play' && roomId) {
+            nav(`/playGame/${roomId}`, { state: { playerColor, isComputer } })
+        }
+    }, [lobby, roomId, playerColor, nav, isComputer])
     return (
-        <div className="w-full h-screen flex  flex-col items-center justify-center">
+        <div className="w-full h-screen flex  flex-col items-center justify-start pt-[80px]">
             <div className="bg-gray-600 px-8 py-6 mb-7  w-full max-w-[400px] md:max-w-2xl mx-auto rounded-lg">
                 <h1 className="text-white font-bold text-[30px] text-center md:text-2xl mb-4">Quick Join</h1>
                 {anonymousRooms && anonymousRooms.length > 0 ? (
@@ -88,14 +107,7 @@ function Lobby() {
                 lobby === 'lobby' && (
                     <div>
                         <div>
-                            <div className="flex flex-col items-center text-gray-300 mb-2 px-3">
-                                <span>For just testing out the game :</span>
-                                <ol className="list-inside list-decimal mt-2 space-y-1">
-                                    <li>create a game and visit the lobby of the app in a new tab.</li>
-                                    <li>You will see an Id in Quick join section , which is the socket.id not roomId.</li>
-                                    <li>Click on it to join the room , or paste the roomId in join room input.</li>
-                                </ol>
-                            </div>
+
                             <div className="flex items-center flex-col md:flex-row gap-3 ">
                                 <button className={`flex items-center justify-center rounded-lg px-4 py-2 transition duration-200 text-black ease-in-out cursor-pointer ${gameMode === 'rapid'
                                     ? 'bg-yellow-300 '
@@ -136,9 +148,7 @@ function Lobby() {
                 )
             }
 
-            {lobby === 'play' && (
-                nav(`/playGame/${roomId}`, { state: { playerColor } })
-            )}
+
 
 
         </div>
