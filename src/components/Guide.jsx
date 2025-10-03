@@ -24,7 +24,19 @@ function Guide() {
                                 </p>
                             ))}
                         </div>
+                        {ind === 0 && (
+                            <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg">
+                                <iframe
+                                    src="https://player.cloudinary.com/embed/?cloud_name=dfmtemqoz&public_id=Untitled_video_-_Made_with_Clipchamp_ksg4mp&profile=cld-default"
+                                    className="w-full h-full"
+                                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                                    allowfullscreen
+                                    frameborder="0"
+                                ></iframe>
+                            </div>
+                        )}
                     </div>
+
                 ))}
             </div>
         </section>
